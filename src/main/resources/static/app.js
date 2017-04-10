@@ -82,8 +82,10 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         $(".chosen").removeClass("chosen");
         $(".others").removeClass("others");
 
+        console.log(attackSuccess);
 
         if(attackSuccess) {
+            alert("Woho");
             switch (majorNationTurn) {
                 case "Britain":
                     $("#" + clickedLand + " > g > a > path").removeClass();
@@ -111,6 +113,8 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
                     break;
             }
         }
+        else
+            alert("Oh no");
         return;
     }
 
@@ -141,7 +145,8 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
     $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4>" + attackRegionOutput);
     $(".attackFrom").click(function () {
         var attackingRegion =$(this).attr('value');
-        console.log("Från:" + attackingRegion); //TEST
+        console.log("Från: " + attackingRegion); //TEST
+        console.log("attackSuccess: " + attackSuccess);
         stompClient.send("/app/attack", {}, JSON.stringify({
             'name': chosenRegion,
             "majorNationTurn": majorNationTurn,
