@@ -82,7 +82,7 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         $(".chosen").removeClass("chosen");
         $(".others").removeClass("others");
 
-        console.log(attackSuccess);
+        console.log("attackSuccess: " + attackSuccess);
 
         if(attackSuccess) {
             alert("Woho");
@@ -136,8 +136,6 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         clickedRegionAdjacents.push(idsForAdjacentRegions[i]);
     }
 
-
-
     var attackRegionOutput = "";
     for (var i=1; i<namesOfAttackRegions.length; i++) {
         attackRegionOutput += "<button type='button' class='btn btn-default attackFrom' data-dismiss='modal' value='" + namesOfAttackRegions[i] + "'>" + namesOfAttackRegions[i] + "</button><br>";
@@ -146,7 +144,6 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
     $(".attackFrom").click(function () {
         var attackingRegion =$(this).attr('value');
         console.log("Från: " + attackingRegion); //TEST
-        console.log("attackSuccess: " + attackSuccess);
         stompClient.send("/app/attack", {}, JSON.stringify({
             'name': chosenRegion,
             "majorNationTurn": majorNationTurn,

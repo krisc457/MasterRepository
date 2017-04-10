@@ -144,6 +144,28 @@ public class GameController {
             if (attackRegionTroops >= defenderTroops) { //lägg logik och setAttackSuccess här inne
                 System.out.println("Woho");
                 info.setAttackSuccess(true);
+                RemoveRegionFromEveryone(gID);
+
+                switch (majorNationTurn) {
+                    case "Britain":
+                        britain.addToRegionsOwned(gID);
+                        break;
+                    case "Germany":
+                        germany.addToRegionsOwned(gID);
+                        break;
+                    case "France":
+                        france.addToRegionsOwned(gID);
+                        break;
+                    case "Usa":
+                        usa.addToRegionsOwned(gID);
+                        break;
+                    case "Japan":
+                        japan.addToRegionsOwned(gID);
+                        break;
+                    case "Russia":
+                        russia.addToRegionsOwned(gID);
+                        break;
+                }
 
             }
             else {
@@ -151,33 +173,6 @@ public class GameController {
                 info.setAttackSuccess(false);
 
             }
-
-//        info.setAttackSuccess(true);
-        //kolla om vi kan ta över jämför truppstorlekar för våran och motståndare
-
-
-        //om vi lyckas ta över, ta bort regionen, sedan lägg till i rätt
-        RemoveRegionFromEveryone(gID);
-        switch (majorNationTurn) {
-            case "Britain":
-                britain.addToRegionsOwned(gID);
-                break;
-            case "Germany":
-                germany.addToRegionsOwned(gID);
-                break;
-            case "France":
-                france.addToRegionsOwned(gID);
-                break;
-            case "Usa":
-                usa.addToRegionsOwned(gID);
-                break;
-            case "Japan":
-                japan.addToRegionsOwned(gID);
-                break;
-            case "Russia":
-                russia.addToRegionsOwned(gID);
-                break;
-        }
 
 //        for (String adjacent : activeGameBoard.get(gInt).getAdjacentRegions()) {
 //            idsForAdjacentRegions +="!3"+ adjacent;
