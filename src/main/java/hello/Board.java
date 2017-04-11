@@ -20,10 +20,10 @@ public class Board {
         regions.add(new Region("g5", "Nunavut", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
         regions.add(new Region("g6", "Quebec", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
         regions.add(new Region("g7", "Ontario", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
-        regions.add(new Region("g8", "Eastern USA", returnRandomIntRange(20000, 5000), returnRandomIntRange(10000, 1000)));
-        regions.add(new Region("g9", "Central USA", returnRandomIntRange(20000, 5000), returnRandomIntRange(10000, 1000)));
-        regions.add(new Region("g10", "Western USA", returnRandomIntRange(20000, 5000), returnRandomIntRange(10000, 1000)));
-        regions.add(new Region("g11", "Southern USA", returnRandomIntRange(20000, 5000), returnRandomIntRange(10000, 1000)));
+        regions.add(new Region("g8", "Eastern USA", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
+        regions.add(new Region("g9", "Central USA", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
+        regions.add(new Region("g10", "Western USA", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
+        regions.add(new Region("g11", "Southern USA", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
         regions.add(new Region("g12", "Mexico", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
         regions.add(new Region("g13", "Cuba", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
         regions.add(new Region("g14", "Jamaica", returnRandomIntRange(10000, 1000), returnRandomIntRange(10000, 1000)));
