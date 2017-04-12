@@ -152,29 +152,6 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
  function disconnect() {
  if (stompClient != null) {
