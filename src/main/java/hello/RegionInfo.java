@@ -7,15 +7,11 @@ public class RegionInfo {
     private String namesOfAttackRegions;
     private String idsForAdjacentRegions;
     private String majorNationTurn;
-
     private String clickedLand;
-
     private boolean cancelMove = false;
-
     private boolean attackMove = false;
-
     private boolean attackSuccess = false;
-
+    private boolean moveTroops = false;
 
     public RegionInfo() {
     }
@@ -58,39 +54,39 @@ public class RegionInfo {
     public boolean isAttackMove() {
         return attackMove;
     }
-
     public void setAttackMove(boolean attackMove) {
         this.attackMove = attackMove;
     }
-
     public boolean isAttackSuccess() {
         return attackSuccess;
     }
-
     public void setAttackSuccess(boolean attackSuccess) {
         this.attackSuccess = attackSuccess;
     }
     public String getClickedLand() {
         return clickedLand;
     }
-
     public void setClickedLand(String clickedLand) {
         this.clickedLand = clickedLand;
     }
-
     public String getTroops() {
         return troops;
     }
-
     public void setTroops(String troops) {
         this.troops = troops;
     }
-
     public String getNetworth() {
         return networth;
     }
-
     public void setNetworth(String networth) {
         this.networth = networth;
+    }
+
+    public boolean isMoveTroops() {
+        return moveTroops;
+    }
+
+    public void setMoveTroops(boolean moveTroops) {
+        this.moveTroops = moveTroops;
     }
 }

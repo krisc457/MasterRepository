@@ -79,9 +79,6 @@ public class GameController {
                     break;
                 case "Usa":
                     for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                        if (adjacentRegionsForChosenregion.contains(usa.getRegionsOwned()))  {
-                            System.out.println("friendly fire");
-                        }
                         if (usa.getRegionsOwned().contains(item)) {
                             namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                         }
@@ -119,6 +116,14 @@ public class GameController {
     public RegionInfo cancelMove() throws Exception {
         RegionInfo info = new RegionInfo();
         info.setCancelMove(true);
+        return info;
+    }
+
+    @MessageMapping("/moveTroops")
+    @SendTo("/topic/gameRoom")
+    public RegionInfo moveTroops() throws Exception {
+        RegionInfo info = new RegionInfo();
+        info.setMoveTroops(false);
         return info;
     }
 

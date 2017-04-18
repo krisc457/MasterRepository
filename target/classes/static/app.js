@@ -29,7 +29,8 @@ $(document).ready(function(){
                 JSON.parse(greeting.body).attackSuccess,
                 JSON.parse(greeting.body).clickedLand,
                 JSON.parse(greeting.body).troops,
-                JSON.parse(greeting.body).networth
+                JSON.parse(greeting.body).networth,
+                JSON.parse(greeting.body).moveTroops
                 //Lägg in värde med land man attackerar ifrån
             );
         });
@@ -53,7 +54,7 @@ $(document).ready(function(){
 
 //Skicka också in värde från det land man attackerar ifrån
 
-function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn, cancelMove, attackMove, attackSuccess, clickedLand, troops, networth) {
+function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn, cancelMove, attackMove, attackSuccess, clickedLand, troops, networth, moveTroops) {
     clickedRegionAdjacents.length=0;
     if(namesOfAttackRegions != null) {
         var namesOfAttackRegions = namesOfAttackRegions.split("!2");
@@ -151,29 +152,6 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         }));
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
  function disconnect() {
