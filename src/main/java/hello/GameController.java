@@ -121,9 +121,18 @@ public class GameController {
 
     @MessageMapping("/moveTroops")
     @SendTo("/topic/gameRoom")
-    public RegionInfo moveTroops() throws Exception {
+    public RegionInfo moveTroops(String regionIdObject) throws Exception {
+        JSONParser myJsonParser = new JSONParser();
+        JSONObject myJson = (JSONObject) myJsonParser.parse(regionIdObject);
+
+        String moveToRegion = (String) myJson.get("moveToRegion");
+        String gID = ((String) myJson.get("name"));
+        String majorNationTurn = (String) myJson.get("majorNationTurn");
+        String attackingFromRegion = (String) myJson.get("attackingRegion");
+        int gInt = Integer.parseInt((gID).substring(1)) - 1;
+
         RegionInfo info = new RegionInfo();
-        info.setMoveTroops(false);
+        info.setMoveTroops(true);
         return info;
     }
 
@@ -187,8 +196,6 @@ public class GameController {
 //        for (String adjacent : activeGameBoard.get(gInt).getAdjacentRegions()) {
 //            idsForAdjacentRegions +="!3"+ adjacent;
 //        }
-
-
         return info;
     }
 

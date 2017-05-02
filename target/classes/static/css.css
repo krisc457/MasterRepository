@@ -73,7 +73,10 @@ a:link {
     position: fixed !important;
     margin-top: 60px !important;
     margin-left: 8px !important;
-    width: 300px !important;
+    width: 400px !important;
+}
+.modal-content {
+    width: 400px;
 }
 
 header {

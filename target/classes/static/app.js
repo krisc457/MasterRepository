@@ -14,7 +14,7 @@ function setConnected(connected) {
     $("#greetings").html("");
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -55,24 +55,24 @@ $(document).ready(function(){
 //Skicka också in värde från det land man attackerar ifrån
 
 function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn, cancelMove, attackMove, attackSuccess, clickedLand, troops, networth, moveTroops) {
-    clickedRegionAdjacents.length=0;
-    if(namesOfAttackRegions != null) {
+    clickedRegionAdjacents.length = 0;
+    if (namesOfAttackRegions != null) {
         var namesOfAttackRegions = namesOfAttackRegions.split("!2");
     } else {
         namesOfAttackRegions = "";
 
     }
 
-    if(idsForAdjacentRegions != null) {
+    if (idsForAdjacentRegions != null) {
         var idsForAdjacentRegions = idsForAdjacentRegions.split("!3");
     } else {
         idsForAdjacentRegions = "";
     }
 
     var majorNationTurn = majorNationTurn;
-    var chosenRegion = idsForAdjacentRegions[idsForAdjacentRegions.length-1];
+    var chosenRegion = idsForAdjacentRegions[idsForAdjacentRegions.length - 1];
 
-    if(cancelMove) {
+    if (cancelMove) {
         $(".adjacent").removeClass("adjacent");
         $(".chosen").removeClass("chosen");
         $(".others").removeClass("others");
@@ -85,7 +85,7 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
 
         console.log("attackSuccess: " + attackSuccess);
 
-        if(attackSuccess) {
+        if (attackSuccess) {
             alert("Woho");
             switch (majorNationTurn) {
                 case "Britain":
@@ -120,7 +120,7 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
     }
 
     $("#CountryName").html(clickedLand);
-    $("#CountryValues").html("<p>Troops :"+troops+"</p><p>Networth : "+networth+"</p>");
+    $("#CountryValues").html("<p>Troops :" + troops + "</p><p>Networth : " + networth + "</p>");
 
     // $(".adjacent").removeClass("adjacent");
     // $(".chosen").removeClass("chosen");
@@ -133,17 +133,17 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
     // $("path:not(.adjacent):not(.chosen)").addClass("others");
 
     clickedRegionToHaveAdjacents = chosenRegion;
-    for(var i=1; i<idsForAdjacentRegions.length-1; i++){
+    for (var i = 1; i < idsForAdjacentRegions.length - 1; i++) {
         clickedRegionAdjacents.push(idsForAdjacentRegions[i]);
     }
 
     var attackRegionOutput = "";
-    for (var i=1; i<namesOfAttackRegions.length; i++) {
+    for (var i = 1; i < namesOfAttackRegions.length; i++) {
         attackRegionOutput += "<button type='button' class='btn btn-default attackFrom' data-dismiss='modal' value='" + namesOfAttackRegions[i] + "'>" + namesOfAttackRegions[i] + "</button><br>";
     }
     $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4>" + attackRegionOutput);
     $(".attackFrom").click(function () {
-        var attackingRegion =$(this).attr('value');
+        var attackingRegion = $(this).attr('value');
         console.log("Från: " + attackingRegion); //TEST
         stompClient.send("/app/attack", {}, JSON.stringify({
             'name': chosenRegion,
@@ -151,6 +151,18 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
             'attackingRegion': attackingRegion
         }));
     });
+
+    $('#btnMoveTroops').click(function () {
+        var moveToRegion = clickedLand;
+        console.log("moveToRegion: " + moveToRegion); //TEST
+        stompClient.send("/app/moveTroops", {}, JSON.stringify({
+            'moveToRegion': moveToRegion,
+            'name': chosenRegion,
+            "majorNationTurn": majorNationTurn,
+            'attackingRegion': attackingRegion
+        }));
+    });
+
 }
 
 /*
@@ -171,15 +183,15 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
 
 
 /*
-$(function () {
-    $("form").on('submit', function (e) {
-        e.preventDefault();
-    });
-    $( "#connect" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#endTurn" ).click(function() { sendGameTurnData(); });
-});
-*/
+ $(function () {
+ $("form").on('submit', function (e) {
+ e.preventDefault();
+ });
+ $( "#connect" ).click(function() { connect(); });
+ $( "#disconnect" ).click(function() { disconnect(); });
+ $( "#endTurn" ).click(function() { sendGameTurnData(); });
+ });
+ */
 
 /*
  function disconnect() {

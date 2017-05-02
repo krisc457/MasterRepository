@@ -71,8 +71,6 @@ $(document).ready(function() {
             $("#gameMap").css("height", newHeight + "px");
         }, 500);
     });
-
-
 });
 
 $(function () {
