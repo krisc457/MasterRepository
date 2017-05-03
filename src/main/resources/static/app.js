@@ -134,7 +134,7 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         attackRegionOutput += "<button type='button' class='btn btn-default attackFrom' data-dismiss='modal' value='" + namesOfAttackRegions[i] + "'>" + namesOfAttackRegions[i] + "</button><br>";
     }
     $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4>" + attackRegionOutput);
-    $(".attackFrom").click(function () {
+    $(".attackFrom").click(function () { //ta den här funktionen för att replikera en movetroops-funktion.
         var attackingRegion = $(this).attr('value');
         console.log("Från: " + attackingRegion); //TEST
         stompClient.send("/app/attack", {}, JSON.stringify({
