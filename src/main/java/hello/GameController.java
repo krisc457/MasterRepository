@@ -46,7 +46,6 @@ public class GameController {
 
         String gID = ((String) myJson.get("name")).substring(1);
         String majorNationTurn = (String) myJson.get("majorNationTurn");
-//        String chosenRegion = (String) myJson.get("name");
 
         int gInt = Integer.parseInt(gID) - 1;
         String namesOfAttackRegions = "";
@@ -236,7 +235,6 @@ public class GameController {
         RegionInfo info = new RegionInfo();
         info.setMajorNationTurn(majorNationTurn);
         info.setClickedLand(gID);
-
         info.setAttackMove(true);
 
         if (attackRegionTroops >= defenderTroops) { //lägg logik och setAttackSuccess här inne
