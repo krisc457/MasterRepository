@@ -45,39 +45,51 @@ public class RegionInfo {
     public void setMajorNationTurn(String majorNationTurn) {
         this.majorNationTurn = majorNationTurn;
     }
+
     public boolean isCancelMove() {
         return cancelMove;
     }
+
     public void setCancelMove(boolean cancelMove) {
         this.cancelMove = cancelMove;
     }
+
     public boolean isAttackMove() {
         return attackMove;
     }
+
     public void setAttackMove(boolean attackMove) {
         this.attackMove = attackMove;
     }
+
     public boolean isAttackSuccess() {
         return attackSuccess;
     }
+
     public void setAttackSuccess(boolean attackSuccess) {
         this.attackSuccess = attackSuccess;
     }
+
     public String getClickedLand() {
         return clickedLand;
     }
+
     public void setClickedLand(String clickedLand) {
         this.clickedLand = clickedLand;
     }
+
     public String getTroops() {
         return troops;
     }
+
     public void setTroops(String troops) {
         this.troops = troops;
     }
+
     public String getNetworth() {
         return networth;
     }
+
     public void setNetworth(String networth) {
         this.networth = networth;
     }
