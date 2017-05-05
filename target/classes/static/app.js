@@ -73,6 +73,13 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         $(".others").removeClass("others");
         return;
     }
+    else if (moveTroops) {
+        $(".adjacent").removeClass("adjacent");
+        $(".chosen").removeClass("chosen");
+        $(".others").removeClass("others");
+        //gör moveTroops stuff here
+        console.log("moveTroops: " + moveTroops);
+    }
     else if (attackMove) {
         $(".adjacent").removeClass("adjacent");
         $(".chosen").removeClass("chosen");
@@ -134,7 +141,7 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         attackRegionOutput += "<button type='button' class='btn btn-default attackFrom' data-dismiss='modal' value='" + namesOfAttackRegions[i] + "'>" + namesOfAttackRegions[i] + "</button><br>";
     }
     $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4>" + attackRegionOutput);
-    $(".attackFrom").click(function () {
+    $(".attackFrom").click(function () { //ta den här funktionen för att replikera en movetroops-funktion.
         var attackingRegion = $(this).attr('value');
         console.log("Från: " + attackingRegion); //TEST
         stompClient.send("/app/attack", {}, JSON.stringify({
@@ -153,15 +160,22 @@ function updateGame(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn
         attackRegionOutput += "<button type='button' class='btn btn-default attackFrom' data-dismiss='modal' value='" + namesOfAttackRegions[i] + "'>" + namesOfAttackRegions[i] + "</button><br>";
     }
 
-    $('#btnMoveTroops').click(function () {
+    // $("#rangeValue1").click(function ()  {
+    //     var testVar =
+    // })
+
+    $(".moveFrom").click(function () {
         var moveToRegion = clickedLand;
-        var attackingRegion = $(this).attr('value');
+        var moveFromRegion = $(this).attr('value');
         console.log("moveToRegion: " + moveToRegion); //TEST
+        var testVar = $("#rangeValue1").attr('text');
+        console.log("Slider: " + testVar);
+        console.log("Move from: " + moveFromRegion);
         stompClient.send("/app/moveTroops", {}, JSON.stringify({
             'moveToRegion': moveToRegion,
             'name': chosenRegion,
             "majorNationTurn": majorNationTurn,
-            'attackingRegion': attackingRegion
+            'moveFromRegion': moveFromRegion
         }));
     });
 

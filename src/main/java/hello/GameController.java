@@ -124,87 +124,69 @@ public class GameController {
         JSONParser myJsonParser = new JSONParser();
         JSONObject myJson = (JSONObject) myJsonParser.parse(regionIdObject);
 
-        String moveToRegion = (String) myJson.get("moveToRegion");
+        String moveFromRegion = (String) myJson.get("moveFromRegion");
         String majorNationTurn = (String) myJson.get("majorNationTurn");
         String gID = ((String) myJson.get("name")).substring(1);
-        String namesOfAttackRegions = "";
+        String namesOfMoveFromRegions = "";
         String idsForAdjacentRegions = "";
         int gInt = Integer.parseInt(gID) - 1;
-        boolean tempFlag = false;
+
+        System.out.println("Ska gå att lösa");
 
         switch (majorNationTurn) {
             case "Britain":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (britain.getRegionsOwned().contains(item)) {
-                        namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
-                }
-                if (britain.getRegionsOwned().contains(activeGameBoard.get(gInt).getName())) {
-                    //behöver göra om den här if-satsen. Den gör inte vad jag vill att den gör.
-                    tempFlag = true;
                 }
                 break;
             case "Germany":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (germany.getRegionsOwned().contains(item)) {
-                        namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
-                }
-                if (germany.getRegionsOwned().contains(activeGameBoard.get(gInt).getName())) {
-                    tempFlag = true;
                 }
                 break;
             case "France":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (france.getRegionsOwned().contains(item)) {
-                        namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
-                }
-                if (france.getRegionsOwned().contains(activeGameBoard.get(gInt).getName())) {
-                    tempFlag = true;
                 }
                 break;
             case "Usa":
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (usa.getRegionsOwned().contains(item)) {
-                        namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+
+                for (String string : activeGameBoard.get(gInt).getAdjacentRegions()) {
+                    System.out.println("Första: " + string);
+                    if (usa.getRegionsOwned().contains(moveFromRegion)) {
+                        System.out.println("Andra: " + string);
                     }
                 }
-                if (usa.getRegionsOwned().contains(activeGameBoard.get(gInt).getName())) {
-                    tempFlag = true;
+
+                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+                    if (usa.getRegionsOwned().contains(item) && usa.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                    }
                 }
                 break;
             case "Japan":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (japan.getRegionsOwned().contains(item)) {
-                        namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
-                }
-                if (japan.getRegionsOwned().contains(activeGameBoard.get(gInt).getName())) {
-                    tempFlag = true;
                 }
                 break;
             case "Russia":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (russia.getRegionsOwned().contains(item)) {
-                        namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
-                }
-                if (russia.getRegionsOwned().contains(activeGameBoard.get(gInt).getName())) {
-                    tempFlag = true;
                 }
                 break;
         }
 
-        for (String adjacent : activeGameBoard.get(gInt).getAdjacentRegions()) {
-            idsForAdjacentRegions += "!3" + adjacent;
-        }
-        idsForAdjacentRegions += "!3" + myJson.get("name");
-
-        if (tempFlag) {
-            System.out.println("Borde gå att lösa");
-        }
-        RegionInfo info = new RegionInfo(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn);
+        RegionInfo info = new RegionInfo(namesOfMoveFromRegions, idsForAdjacentRegions, majorNationTurn);
         info.setTroops("" + activeGameBoard.get(gInt).getTroops());
         info.setNetworth("" + activeGameBoard.get(gInt).getNetworth());
         info.setClickedLand(activeGameBoard.get(gInt).getName());
