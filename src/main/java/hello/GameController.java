@@ -50,6 +50,7 @@ public class GameController {
         int gInt = Integer.parseInt(gID) - 1;
         String namesOfAttackRegions = "";
         String idsForAdjacentRegions = "";
+        String namesOfPossibleMoveRegions = "";
         List<String> adjacentRegionsForChosenregion = new ArrayList<>();
         for (String region : activeGameBoard.get(gInt).getAdjacentRegions()) {
             adjacentRegionsForChosenregion.add(region);
@@ -61,12 +62,20 @@ public class GameController {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
                 }
+                if (britain.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+                    namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
+                    System.out.println(namesOfPossibleMoveRegions);
+                }
                 break;
             case "Germany":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (germany.getRegionsOwned().contains(item)) {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
+                }
+                if (germany.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+                    namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
+                    System.out.println(namesOfPossibleMoveRegions);
                 }
                 break;
             case "France":
@@ -75,19 +84,34 @@ public class GameController {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
                 }
+                if (france.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+                    namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
+                    System.out.println(namesOfPossibleMoveRegions);
+                }
                 break;
             case "Usa":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (usa.getRegionsOwned().contains(item)) {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
+
+
+                    if (usa.getRegionsOwned().contains(item)) {
+                        namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
+                        System.out.println(namesOfPossibleMoveRegions);
+                    }
                 }
+                //behöver loopas här uppe
                 break;
             case "Japan":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (japan.getRegionsOwned().contains(item)) {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
+                }
+                if (japan.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+                    namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
+                    System.out.println(namesOfPossibleMoveRegions);
                 }
                 break;
             case "Russia":
@@ -96,6 +120,10 @@ public class GameController {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
                 }
+                if (russia.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+                    namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
+                    System.out.println(namesOfPossibleMoveRegions);
+                }
                 break;
         }
         for (String adjacent : activeGameBoard.get(gInt).getAdjacentRegions()) {
@@ -103,7 +131,10 @@ public class GameController {
         }
         idsForAdjacentRegions += "!3" + myJson.get("name");
 
-        RegionInfo info = new RegionInfo(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn);
+
+        //bygg en string med möjliga flyttländer på samma sätt som möjliga attackländer
+
+        RegionInfo info = new RegionInfo(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn, namesOfPossibleMoveRegions);
         info.setTroops("" + activeGameBoard.get(gInt).getTroops());
         info.setNetworth("" + activeGameBoard.get(gInt).getNetworth());
         info.setClickedLand(activeGameBoard.get(gInt).getName());
@@ -121,77 +152,78 @@ public class GameController {
     @MessageMapping("/moveTroops")
     @SendTo("/topic/gameRoom")
     public RegionInfo moveTroops(String regionIdObject) throws Exception {
-        JSONParser myJsonParser = new JSONParser();
-        JSONObject myJson = (JSONObject) myJsonParser.parse(regionIdObject);
-
-        String moveFromRegion = (String) myJson.get("moveFromRegion");
-        String majorNationTurn = (String) myJson.get("majorNationTurn");
-        String gID = ((String) myJson.get("name")).substring(1);
-        String namesOfMoveFromRegions = "";
-        String idsForAdjacentRegions = "";
-        int gInt = Integer.parseInt(gID) - 1;
-
-        System.out.println("Ska gå att lösa");
-
-        switch (majorNationTurn) {
-            case "Britain":
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (britain.getRegionsOwned().contains(item)) {
-                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
-                    }
-                }
-                break;
-            case "Germany":
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (germany.getRegionsOwned().contains(item)) {
-                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
-                    }
-                }
-                break;
-            case "France":
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (france.getRegionsOwned().contains(item)) {
-                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
-                    }
-                }
-                break;
-            case "Usa":
-
-                for (String string : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    System.out.println("Första: " + string);
-                    if (usa.getRegionsOwned().contains(moveFromRegion)) {
-                        System.out.println("Andra: " + string);
-                    }
-                }
-
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (usa.getRegionsOwned().contains(item) && usa.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
-                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
-                    }
-                }
-                break;
-            case "Japan":
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (japan.getRegionsOwned().contains(item)) {
-                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
-                    }
-                }
-                break;
-            case "Russia":
-                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
-                    if (russia.getRegionsOwned().contains(item)) {
-                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
-                    }
-                }
-                break;
-        }
-
-        RegionInfo info = new RegionInfo(namesOfMoveFromRegions, idsForAdjacentRegions, majorNationTurn);
-        info.setTroops("" + activeGameBoard.get(gInt).getTroops());
-        info.setNetworth("" + activeGameBoard.get(gInt).getNetworth());
-        info.setClickedLand(activeGameBoard.get(gInt).getName());
-        info.setMoveTroops(true);
-        return info;
+//        JSONParser myJsonParser = new JSONParser();
+//        JSONObject myJson = (JSONObject) myJsonParser.parse(regionIdObject);
+//
+//        String moveFromRegion = (String) myJson.get("moveFromRegion"); //landsnamn
+//        String majorNationTurn = (String) myJson.get("majorNationTurn");
+//        String gID = ((String) myJson.get("name")).substring(1);
+//        String namesOfMoveFromRegions = "";
+//        String idsForAdjacentRegions = "";
+//        int gInt = Integer.parseInt(gID) - 1;
+//
+//
+//        switch (majorNationTurn) {
+//            case "Britain":
+//                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (britain.getRegionsOwned().contains(item)) {
+//                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+//                    }
+//                }
+//                break;
+//            case "Germany":
+//                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (germany.getRegionsOwned().contains(item)) {
+//                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+//                    }
+//                }
+//                break;
+//            case "France":
+//                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (france.getRegionsOwned().contains(item)) {
+//                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+//                    }
+//                }
+//                break;
+//            case "Usa":
+//
+//                for (String string : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (usa.getRegionsOwned().contains(moveFromRegion)) {
+//                        System.out.println("moveFromRegion: " + moveFromRegion);
+//                        System.out.println("Andra: " + string);
+//                    }
+//                }
+//
+//                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (usa.getRegionsOwned().contains(item) && usa.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
+//                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+//                    }
+//                }
+//                break;
+//            case "Japan":
+//                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (japan.getRegionsOwned().contains(item)) {
+//                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+//                    }
+//                }
+//                break;
+//            case "Russia":
+//                for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
+//                    if (russia.getRegionsOwned().contains(item)) {
+//                        namesOfMoveFromRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
+//                    }
+//                }
+//                break;
+//        }
+//
+//
+//        RegionInfo info = new RegionInfo(namesOfMoveFromRegions, idsForAdjacentRegions, majorNationTurn, namesOfPossibleMoveRegions);
+//        info.setTroops("" + activeGameBoard.get(gInt).getTroops());
+//        info.setNetworth("" + activeGameBoard.get(gInt).getNetworth());
+//        info.setClickedLand(activeGameBoard.get(gInt).getName());
+//        info.setMoveTroops(true);
+//        return info;
+        return null; //temp
     }
 
     @MessageMapping("/attack")

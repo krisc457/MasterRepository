@@ -6,6 +6,7 @@ public class RegionInfo {
     private String networth;
     private String namesOfAttackRegions;
     private String idsForAdjacentRegions;
+    private String namesOfPossibleMoveRegions;
     private String majorNationTurn;
     private String clickedLand;
     private boolean cancelMove = false;
@@ -16,10 +17,11 @@ public class RegionInfo {
     public RegionInfo() {
     }
 
-    public RegionInfo(String namesOfAttackRegions, String idsForAdjacentRegions, String majorNationTurn) {
+    public RegionInfo(String namesOfAttackRegions, String idsForAdjacentRegions, String majorNationTurn, String namesOfPossibleMoveRegions) {
         this.namesOfAttackRegions = namesOfAttackRegions;
         this.idsForAdjacentRegions = idsForAdjacentRegions;
         this.majorNationTurn = majorNationTurn;
+        this.namesOfPossibleMoveRegions = namesOfPossibleMoveRegions;
     }
 
     public void setNamesOfAttackRegions(String namesOfAttackRegions) {
