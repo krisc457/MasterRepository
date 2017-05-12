@@ -62,8 +62,7 @@ public class GameController {
                 }
                 if (britain.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
                     namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
-                    System.out.println(namesOfPossibleMoveRegions);
-                }
+                 }
                 break;
             case "Germany":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
@@ -73,7 +72,6 @@ public class GameController {
                 }
                 if (germany.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
                     namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
-                    System.out.println(namesOfPossibleMoveRegions);
                 }
                 break;
             case "France":
@@ -84,22 +82,22 @@ public class GameController {
                 }
                 if (france.getRegionsOwned().contains(activeGameBoard.get(gInt).getRegionID())) {
                     namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
-                    System.out.println(namesOfPossibleMoveRegions);
                 }
                 break;
             case "Usa":
+                int i = 1;
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
                     if (usa.getRegionsOwned().contains(item)) {
                         namesOfAttackRegions += "!2" + activeGameBoard.get(Integer.parseInt(item.substring(1)) - 1).getName();
                     }
 
-
                     if (usa.getRegionsOwned().contains(item)) {
                         namesOfPossibleMoveRegions += "!4" + activeGameBoard.get(gInt).getName();
-                        System.out.println(namesOfPossibleMoveRegions);
                     }
                 }
                 //behöver loopas här uppe
+                //vet inte vart jag slutade senast. kaoz här
+                //nu lägger den till en region sen stannar den. Problem! bör loopas (nu förstår jag kommentaren två rader upp igen)!
                 break;
             case "Japan":
                 for (String item : activeGameBoard.get(gInt).getAdjacentRegions()) {
@@ -129,7 +127,7 @@ public class GameController {
         }
         idsForAdjacentRegions += "!3" + myJson.get("name");
 
-
+        System.out.println("namesOfPossibleMoveRegions: " + namesOfPossibleMoveRegions);
         //bygg en string med möjliga flyttländer på samma sätt som möjliga attackländer
 
         RegionInfo info = new RegionInfo(namesOfAttackRegions, idsForAdjacentRegions, majorNationTurn, namesOfPossibleMoveRegions);
